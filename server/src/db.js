@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+const UserModel = require("./schemas/user.schema");
 const {
   dbUser,
   dbPassword,
@@ -15,6 +16,9 @@ const sequelize = new Sequelize(
   }
 );
 
+const User = UserModel(sequelize);
+
 module.exports = {
   conn: sequelize,
+  User,
 };

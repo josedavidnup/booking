@@ -5,6 +5,9 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./redux/app/store";
 import { Provider } from "react-redux";
 import "./index.css";
+import axios from "axios";
+axios.defaults.baseURL =
+  import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
