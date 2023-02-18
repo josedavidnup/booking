@@ -8,7 +8,20 @@ const SignUp = () => {
     password: "",
   });
 
-  const handleSubmit = () => {};
+  const handleOnChange = (e) => {
+    console.log(e.target.value);
+    setUser((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(user);
+  };
 
   return (
     <>
@@ -18,7 +31,12 @@ const SignUp = () => {
       <div>
         <div>
           <div>
-            <SignUpForm handleSubmit={handleSubmit} />
+            <SignUpForm
+              handleSubmit={handleSubmit}
+              user={user}
+              setUser={setUser}
+              handleOnChange={handleOnChange}
+            />
           </div>
         </div>
       </div>
