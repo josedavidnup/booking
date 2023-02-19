@@ -5,7 +5,7 @@ import errorReducer from "../slices/errorSlice";
 
 export default configureStore({
   reducer: {
-    user: authUserReducer,
+    auth: authUserReducer,
     loading: loadingReducer,
     error: errorReducer,
   },

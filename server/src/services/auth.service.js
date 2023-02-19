@@ -1,5 +1,7 @@
 const { User } = require("../db");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("../../utils/config.js");
 
 exports.signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -31,7 +33,11 @@ exports.login = async (req, res) => {
     if (!user) return res.status(400).send("Email not found. Please, signup");
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).send("Wrong password");
-    console.log("Generate a token");
+    const token = jwt.sign({ _id: user._id }, jwtSecret, {
+      expiresIn: "7d", //can be day/month/year
+    });
+    delete user.dataValues.password;
+    return res.json({ token, user });
   } catch (error) {
     console.log(`Login error: ${error}`);
     res.status(400).send("Sign in failed. Try again");

@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import { login } from "../../api/auth";
 import LoginForm from "../../components/forms/LoginForm";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logInUser } from "../../redux/slices/authUserSlice";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -10,6 +12,7 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnChange = (e) => {
     console.log(e.target.value);
@@ -31,12 +34,13 @@ const Login = () => {
       });
 
       if (response.data) {
-        console.log("Save in redux and save in local storage");
         console.log(response.data);
+        // console.log("Save in redux and save in local storage");
+        window.localStorage.setItem("auth", JSON.stringify(response.data));
+        dispatch(logInUser(response.data));
+        toast.success("Login user success!");
+        // navigate("/");
       }
-
-      toast.success("Login user success!");
-      navigate("/");
     } catch (error) {
       console.log(error);
       toast.error(error.response.data);
