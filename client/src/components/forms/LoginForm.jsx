@@ -1,21 +1,11 @@
 import React from "react";
 
-const SignUpForm = ({ handleSubmit, user, handleOnChange }) => {
+const LoginForm = ({ handleSubmit, user, handleOnChange }) => {
   return (
     <form
       onSubmit={handleSubmit}
       className="flex flex-col m-10 max-w-xl max-h-full"
     >
-      <div>
-        <label>Your name:</label>
-        <input
-          type="text"
-          placeholder="Enter name"
-          name="name"
-          value={user.name}
-          onChange={handleOnChange}
-        />
-      </div>
       <div>
         <label>Your email:</label>
         <input
@@ -36,9 +26,11 @@ const SignUpForm = ({ handleSubmit, user, handleOnChange }) => {
           onChange={handleOnChange}
         />
       </div>
-      <button type="submit">Sign up</button>
+      <button disabled={!user.email || !user.password} type="submit">
+        Login
+      </button>
     </form>
   );
 };
 
-export default SignUpForm;
+export default LoginForm;

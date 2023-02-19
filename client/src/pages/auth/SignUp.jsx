@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import SignUpForm from "../../components/SignUpForm";
-import axios from "axios";
+import SignUpForm from "../../components/forms/SignUpForm";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { signup } from "../../api/auth";
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -25,7 +25,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/signup`, {
+      const response = await signup({
         name: user.name,
         email: user.email,
         password: user.password,
@@ -50,7 +50,6 @@ const SignUp = () => {
             <SignUpForm
               handleSubmit={handleSubmit}
               user={user}
-              setUser={setUser}
               handleOnChange={handleOnChange}
             />
           </div>
