@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
-module.exports = (sequelize) => {
+const User = (sequelize) => {
   return sequelize.define(
     "user",
     {
@@ -32,20 +32,6 @@ module.exports = (sequelize) => {
       },
     },
     {
-      hooks: {
-        beforeCreate: async (user, options) => {
-          return bcrypt
-            .hash(user.password, 12)
-            .then((hash) => {
-              user.password = hash;
-            })
-            .catch((err) => {
-              throw Error(`Bcrypt hash error ${err}`);
-            });
-        },
-      },
-    },
-    {
       timestamps: true,
     }
   );
@@ -54,3 +40,5 @@ module.exports = (sequelize) => {
 // stripe_account_id: "",
 //   stripe_seller: {},
 //   stripeSession: {},
+
+module.exports = User;
