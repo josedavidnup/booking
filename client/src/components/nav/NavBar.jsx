@@ -16,6 +16,7 @@ const NavBar = () => {
   return (
     <div className="flex justify-around bg-slate-700 text-white">
       <Link to={"/"}>Home</Link>
+      {auth.token !== null && <Link to={"/user/dashboard"}> Dashboard </Link>}
       {!auth.token && !auth.user ? (
         <>
           <Link to={"/login"}>Login</Link>

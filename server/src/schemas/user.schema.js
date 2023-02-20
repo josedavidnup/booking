@@ -30,15 +30,14 @@ const User = (sequelize) => {
         min: 6,
         max: 64,
       },
+      stripe_account_id: { type: DataTypes.STRING },
+      stripe_seller: { type: DataTypes.STRING },
+      stripeSession: { type: DataTypes.STRING },
     },
     {
       timestamps: true,
     }
   );
 };
-
-// stripe_account_id: "",
-//   stripe_seller: {},
-//   stripeSession: {},
 
 module.exports = User;

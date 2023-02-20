@@ -1,14 +1,31 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const ConnectNav = () => {
   const { auth } = useSelector((state) => ({ ...state }));
   const { user } = auth;
   return (
-    <article>
-      <h4>{user.name[0]}</h4>
-      <h2>{user.name}</h2>
-    </article>
+    <div className="flex justify-around items-center">
+      <div className="flex">
+        <div className="w-10 h-10 rounded-full bg-gray-600 flex justify-center items-center mr-3">
+          {user.name[0]}
+        </div>
+        <div>
+          <h2>{user.name}</h2>
+          <p>{`Joined ${moment(user.createdAt).fromNow()}`}</p>
+        </div>
+      </div>
+      {auth.token &&
+        auth.user &&
+        auth.user.stripe_seller &&
+        auth.user.stripe_sellet.charges_enable && (
+          <>
+            <div>Pending balance</div>
+            <div>Payout settings</div>
+          </>
+        )}
+    </div>
   );
 };
 
