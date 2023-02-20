@@ -35,7 +35,6 @@ const Login = () => {
 
       if (response.data) {
         console.log(response.data);
-        // console.log("Save in redux and save in local storage");
         window.localStorage.setItem("auth", JSON.stringify(response.data));
         dispatch(logInUser(response.data));
         toast.success("Login user success!");

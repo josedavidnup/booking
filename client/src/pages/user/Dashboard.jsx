@@ -14,7 +14,7 @@ const Dashboard = () => {
           <DashboardNav />
         </div>
         <div>
-          <div>
+          <div className="flex justify-around">
             <div>
               <h2>Your bookings</h2>
             </div>
