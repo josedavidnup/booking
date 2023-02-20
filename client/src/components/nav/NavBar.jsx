@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOutUser } from "../redux/slices/authUserSlice";
+import { logOutUser } from "../../redux/slices/authUserSlice";
 
 const NavBar = () => {
   const { auth } = useSelector((state) => ({ ...state }));
@@ -14,7 +14,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="flex justify-around">
+    <div className="flex justify-around bg-slate-700 text-white">
       <Link to={"/"}>Home</Link>
       {!auth.token && !auth.user ? (
         <>

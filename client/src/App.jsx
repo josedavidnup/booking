@@ -3,7 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/booking/Home";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/nav/NavBar";
+import UserRoute from "./components/routes/UserRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,8 +16,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/user/*" element={<UserRoute />} />
       </Routes>
-      <ToastContainer pauseOnFocusLoss={true} />
+      <ToastContainer pauseOnFocusLoss={false} />
     </>
   );
 }

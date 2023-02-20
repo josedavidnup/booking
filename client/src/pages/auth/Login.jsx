@@ -39,7 +39,7 @@ const Login = () => {
         window.localStorage.setItem("auth", JSON.stringify(response.data));
         dispatch(logInUser(response.data));
         toast.success("Login user success!");
-        // navigate("/");
+        navigate("/user/dashboard");
       }
     } catch (error) {
       console.log(error);
