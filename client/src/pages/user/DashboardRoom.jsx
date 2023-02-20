@@ -11,12 +11,15 @@ export const DashboardRoom = () => {
   const { auth } = useSelector((state) => ({ ...state }));
   const [loading, setLoading] = useState(false);
   const handleClick = async () => {
+    setLoading(true);
     try {
       let res = await createConnectAccount(auth.token);
       console.log(res);
+      setLoading(false);
     } catch (error) {
       console.log(error);
       toast.error("Stripe connect failed. Try again later");
+      setLoading(false);
     }
   };
 

@@ -9,4 +9,6 @@ module.exports = {
   dbHost: process.env.DB_HOST || "localhost",
   apiKey: process.env.API_KEY,
   jwtSecret: process.env.JWT_SECRET,
+  stripeSecret: process.env.STRIPE_SECRET,
+  stripeRedirect_Url: process.env.STRIPE_REDIRECT_URL,
 };

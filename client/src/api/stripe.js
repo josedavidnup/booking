@@ -6,7 +6,7 @@ export const createConnectAccount = async (token) =>
     {},
     {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `${token}`,
       },
     }
   );
