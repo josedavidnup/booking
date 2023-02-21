@@ -15,7 +15,7 @@ export const DashboardRoom = () => {
     try {
       let res = await createConnectAccount(auth.token);
       console.log(res);
-      setLoading(false);
+      window.location.href = res.data;
     } catch (error) {
       console.log(error);
       toast.error("Stripe connect failed. Try again later");

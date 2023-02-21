@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Dashboard from "../../pages/user/Dashboard";
 import { DashboardRoom } from "../../pages/user/DashboardRoom";
 import NewRoom from "../../pages/rooms/NewRoom";
+import StripeCallback from "../../stripe/StripeCallback";
 
 const UserRoute = () => {
   const { auth } = useSelector((state) => ({ ...state }));
@@ -13,6 +14,7 @@ const UserRoute = () => {
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="rooms" element={<DashboardRoom />} />
       <Route path="rooms/new" element={<NewRoom />} />
+      <Route path="stripe/callback" element={<StripeCallback />} />
     </Routes>
   ) : (
     <Navigate to="/login" replace />

@@ -7,6 +7,7 @@ import NavBar from "./components/nav/NavBar";
 import UserRoute from "./components/routes/UserRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./assets/loaders/Loader";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user/*" element={<UserRoute />} />
+        <Route path="/loader" element={<Loader />} />
       </Routes>
       <ToastContainer pauseOnFocusLoss={false} />
     </>
