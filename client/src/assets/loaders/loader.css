@@ -1,106 +1,161 @@
-.loader {
-  position: relative;
-
-  width: 120px;
-
-  height: 120px;
-}
-
-.loader span {
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
+.fondo {
+  background-color: #61cadf;
   width: 100%;
-
-  height: 100%;
-
-  transform: rotate(calc(18deg * var(--i)));
-
-  /* 360/20 = 18deg */
+  overflow: hidden;
+  animation: body 33.5s infinite linear;
 }
-
-.loader span::before {
-  content: "";
-
+.sun {
   position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  width: 15px;
-
-  height: 15px;
-
-  background: #fff;
-
-  border-radius: 50%;
-
-  animation: animate 2s linear infinite;
-
-  animation-delay: calc(0.1s * var(--i));
+  height: 80px;
+  width: 80px;
+  border-radius: 80px;
+  background-color: #f1c40f;
+  margin-top: 20px;
+  margin-left: 300px;
+  box-shadow: 0px 0px 180px 2px #ffff75;
+  animation: sun 33.5s infinite linear;
 }
-
-@keyframes animate {
-  0% {
-    transform: scale(0);
+.moon {
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  border-radius: 80px;
+  background-color: #f1c40f;
+  margin-top: 20px;
+  margin-left: 300px;
+  box-shadow: 0px 0px 180px 2px #ffff75;
+  animation: sun 33.5s infinite linear;
+  background-color: #f1efa5;
+  box-shadow: 0px 0px 180px 2px #ffffe7;
+  animation: none;
+  margin-left: 1250px;
+  z-index: -2;
+  animation: moon 33.5s infinite linear;
+}
+.plane {
+  margin-left: 50%;
+  height: 80px;
+  margin-top: 70px;
+  position: absolute;
+  z-index: 2;
+  animation: plane 6s infinite;
+}
+.cloud1 {
+  height: 100px;
+  float: right;
+  margin-top: 20px;
+  margin-right: 102%;
+  animation: clouds 10s infinite linear;
+}
+.cloud2 {
+  height: 100px;
+  float: right;
+  margin-top: 20px;
+  margin-right: 102%;
+  animation: clouds 10s infinite linear;
+  height: 70px;
+  margin-right: 115%;
+  animation: clouds 12s infinite linear;
+}
+.cloud3 {
+  height: 100px;
+  float: right;
+  margin-top: 20px;
+  margin-right: 102%;
+  animation: clouds 10s infinite linear;
+  height: 80px;
+  margin-right: 120%;
+  animation: clouds 11.5s infinite linear;
+}
+.cloud4 {
+  height: 100px;
+  float: right;
+  margin-top: 20px;
+  margin-right: 102%;
+  animation: clouds 10s infinite linear;
+  height: 50px;
+  margin-right: 110%;
+  animation: clouds 17s infinite linear;
+}
+.cloud5 {
+  height: 100px;
+  float: right;
+  margin-top: 20px;
+  margin-right: 102%;
+  animation: clouds 10s infinite linear;
+  height: 30px;
+  margin-right: 120%;
+  animation: clouds 31s infinite linear;
+}
+@keyframes clouds {
+  from {
+    transform: translateX(-5%);
   }
-
+  to {
+    transform: translateX(2900px);
+  }
+}
+@keyframes plane {
+  25% {
+    margin-top: 85px;
+  }
+  50% {
+    margin-left: 48%;
+  }
+  75% {
+    margin-left: 46%;
+    margin-top: 60px;
+  }
+  100% {
+    margin-top: 70px;
+    margin-left: 50%;
+  }
+}
+@keyframes body {
+  0% {
+    background-color: #69d2e7;
+  }
+  5% {
+    background-color: #69d2e7;
+  }
+  25% {
+    background-color: #1d2f41;
+  }
+  75% {
+    background-color: #1d2f41;
+  }
+  100% {
+    background-color: #69d2e7;
+  }
+}
+@keyframes sun {
+  0% {
+    margin-top: 20px;
+  }
   10% {
-    transform: scale(1.2);
+    margin-top: 20px;
   }
-
-  80%,
+  30% {
+    margin-top: 101%;
+  }
+  75% {
+    margin-top: 101%;
+  }
   100% {
-    transform: scale(0);
+    margin-top: 20px;
   }
 }
-
-.rocket {
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  animation: rotate 2s linear infinite;
-
-  animation-delay: -1s;
-}
-
-@keyframes rotate {
+@keyframes moon {
   0% {
-    transform: rotate(10deg);
+    margin-top: 101%;
   }
-
+  25% {
+    margin-top: 20px;
+  }
+  75% {
+    margin-top: 20px;
+  }
   100% {
-    transform: rotate(370deg);
+    margin-top: 101%;
   }
-}
-
-.rocket::before {
-  content: "\f072";
-
-  /* Unicode for plane is '\f072' */
-
-  font-family: fontAwesome;
-
-  position: absolute;
-
-  top: 80px;
-
-  left: 85px;
-
-  color: #fff;
-
-  font-size: 60px;
-
-  transform: rotate(130deg);
 }

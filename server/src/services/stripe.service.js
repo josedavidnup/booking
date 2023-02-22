@@ -30,3 +30,9 @@ exports.createConnectAccount = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.getAccountStatus = async (req, res) => {
+  try {
+    console.log("Get account status");
+  } catch (error) {}
+};
