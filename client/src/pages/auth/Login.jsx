@@ -32,6 +32,7 @@ const Login = () => {
         email: user.email,
         password: user.password,
       });
+      console.log(response);
 
       if (response.data) {
         console.log(response.data);

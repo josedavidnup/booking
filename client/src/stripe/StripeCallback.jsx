@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { SpinningCircles } from "react-loading-icons";
 import { useSelector, useDispatch } from "react-redux";
+import { updateUserInLocalStorage } from "../api/auth";
 import { getAccountStatus } from "../api/stripe";
 
 const StripeCallback = () => {
@@ -10,7 +11,11 @@ const StripeCallback = () => {
   const accountStatus = async () => {
     try {
       const res = await getAccountStatus(auth.token);
-      console.log(res);
+      res.data.stripe_seller = JSON.parse(res.data.stripe_seller);
+      updateUserInLocalStorage(res.data, () => {
+        dispatch(logInUser(res.data));
+        window.location.href = "user/rooms";
+      });
     } catch (error) {
       console.log(error);
     }
