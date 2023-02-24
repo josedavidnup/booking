@@ -1,5 +1,6 @@
 const User = require("../schemas/user.schema");
 const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("../utils/config");
 
 const signup = async (req, res) => {
   console.log(req.body);
@@ -37,7 +38,7 @@ const login = async (req, res) => {
       console.log("COMPARE PASSWORD IN LOGIN ERR", err);
       if (!match || err) return res.status(400).send("Wrong password");
       // GENERATE A TOKEN THEN SEND AS RESPONSE TO CLIENT
-      let token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      let token = jwt.sign({ _id: user._id }, jwtSecret, {
         expiresIn: "7d",
       });
       res.json({

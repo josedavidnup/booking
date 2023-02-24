@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
 const cookieParser = require("cookie-parser");
 const { readdirSync } = require("fs");
 const { port } = require("./utils/config");

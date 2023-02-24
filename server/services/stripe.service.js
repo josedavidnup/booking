@@ -1,7 +1,8 @@
 const User = require("../schemas/user.schema");
 const Stripe = require("stripe");
 const querystring = require("querystring");
-const stripe = Stripe(process.env.STRIPE_SECRET);
+const { stripeSecret, stripeRedirect_Url } = require("../utils/config");
+const stripe = Stripe(stripeSecret);
 
 const createConnectAccount = async (req, res) => {
   // 1. find user from db
@@ -19,8 +20,8 @@ const createConnectAccount = async (req, res) => {
   // 3. create login link based on account id (for frontend to complete onboarding)
   let accountLink = await stripe.accountLinks.create({
     account: user.stripe_account_id,
-    refresh_url: process.env.STRIPE_REDIRECT_URL,
-    return_url: process.env.STRIPE_REDIRECT_URL,
+    refresh_url: stripeRedirect_Url,
+    return_url: stripeRedirect_Url,
     type: "account_onboarding",
   });
   // prefill any info such as email
