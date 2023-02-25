@@ -15,7 +15,7 @@ const { jwtSecret } = require("../utils/config.js");
 //   }
 // };
 
-const requireSignIn = (req, res, next) => {
+const loginVerification = (req, res, next) => {
   const token = req.cookies.token;
   try {
     if (!token) return res.status(403).send("Access denied.");
@@ -28,4 +28,4 @@ const requireSignIn = (req, res, next) => {
   }
 };
 
-module.exports = { requireSignIn };
+module.exports = { loginVerification };

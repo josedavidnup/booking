@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { requireSignIn } = require("../middlewares");
+const { loginVerification } = require("../middlewares");
 const {
   createConnectAccount,
   getAccountStatus,
 } = require("../services/stripe.service");
 
-router.post("/create-connect-account", requireSignIn, createConnectAccount);
-router.post("/get-account-status", requireSignIn, getAccountStatus);
+router.post("/create-connect-account", loginVerification, createConnectAccount);
+router.post("/get-account-status", loginVerification, getAccountStatus);
 
 module.exports = router;
