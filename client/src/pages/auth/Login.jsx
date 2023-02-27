@@ -34,16 +34,16 @@ const Login = () => {
       });
       console.log(response);
 
-      if (response.data) {
-        console.log(response.data);
-        window.localStorage.setItem("auth", JSON.stringify(response.data));
-        dispatch(logInUser(response.data));
+      if (response) {
+        console.log(response);
+        window.localStorage.setItem("auth", JSON.stringify(response));
+        dispatch(logInUser(response));
         toast.success("Login user success!");
         navigate("/user/dashboard");
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data);
+      toast.error(error.response);
     }
   };
   return (

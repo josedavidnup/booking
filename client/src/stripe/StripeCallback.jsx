@@ -11,9 +11,9 @@ const StripeCallback = () => {
   const accountStatus = async () => {
     try {
       const res = await getAccountStatus(auth.token);
-      res.data.stripe_seller = JSON.parse(res.data.stripe_seller);
-      updateUserInLocalStorage(res.data, () => {
-        dispatch(logInUser(res.data));
+      res.stripe_seller = JSON.parse(res.stripe_seller);
+      updateUserInLocalStorage(res, () => {
+        dispatch(logInUser(res));
         window.location.href = "user/rooms";
       });
     } catch (error) {
