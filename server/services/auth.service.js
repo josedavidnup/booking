@@ -47,6 +47,8 @@ const login = async (req, res) => {
           _id: user._id,
           name: user.name,
           email: user.email,
+          stripe_account_id: user.stripe_account_id,
+          stripe_seller: user.stripe_seller,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         },

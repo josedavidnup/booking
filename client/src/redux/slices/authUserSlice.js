@@ -21,7 +21,6 @@ export const authUserSlice = createSlice({
   reducers: {
     logInUser: (state, { payload }) => {
       const { user, token } = payload;
-      user.stripe_seller = JSON.parse(user.stripe_seller);
       state.user = user;
       state.token = token;
     },

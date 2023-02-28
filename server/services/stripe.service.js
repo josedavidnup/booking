@@ -29,7 +29,7 @@ const createConnectAccount = async (req, res) => {
     "stripe_user[email]": user.email || undefined,
   });
   // console.log("ACCOUNT LINK", accountLink);
-  let link = `${accountLink.url}?${queryString.stringify(accountLink)}`;
+  let link = `${accountLink.url}?${querystring.stringify(accountLink)}`;
   console.log("LOGIN LINK", link);
   res.send(link);
   // 4. update payment schedule (optional. default is 2 days

@@ -34,10 +34,10 @@ const Login = () => {
       });
       console.log(response);
 
-      if (response) {
+      if (response.data) {
         console.log(response);
-        window.localStorage.setItem("auth", JSON.stringify(response));
-        dispatch(logInUser(response));
+        window.localStorage.setItem("auth", JSON.stringify(response.data));
+        dispatch(logInUser(response.data));
         toast.success("Login user success!");
         navigate("/user/dashboard");
       }
