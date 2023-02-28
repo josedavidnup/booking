@@ -41,7 +41,7 @@ const getAccountStatus = async (req, res) => {
   const account = await stripe.accounts.retrieve(user.stripe_account_id);
   // console.log("USER ACCOUNT RETRIEVE", account);
   // update delay days
-  const updatedAccount = await updateDelayDays(account.id);
+  // const updatedAccount = await updateDelayDays(account.id);
   const updatedUser = await User.findByIdAndUpdate(
     user._id,
     {

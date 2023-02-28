@@ -3,9 +3,9 @@ import DashboardNav from "../../components/nav/DashboardNav";
 import ConnectNav from "../../components/nav/ConnectNav";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AiOutlineHome } from "react-icons/ai";
 import { createConnectAccount } from "../../api/stripe";
 import { toast } from "react-toastify";
+import logoStripe from "../../assets/images/stripe-connect.svg";
 
 export const DashboardRoom = () => {
   const { auth } = useSelector((state) => ({ ...state }));
@@ -37,27 +37,39 @@ export const DashboardRoom = () => {
   );
 
   const notConnected = () => (
-    <div>
+    <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-around">
         <div>
-          <AiOutlineHome />
-          <h4>Setup payouts to post your rooms</h4>
-          <p>
-            Booking partners with stripe to transfer earnings to your bank
-            account
-          </p>
-          <button
-            onClick={handleClick}
-            className="border-2 border-green-700 bg-green-700 rounded p-3"
-            disabled={loading}
-          >
-            {loading ? "Processing..." : "Setup Payouts"}
-          </button>
+          <h4 className="mb-3 text-base font-semibold text-gray-900 md:text-xl dark:text-white">
+            Setup payouts to post your rooms
+          </h4>
+          <div className="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+            <img src={logoStripe} alt="" className="h-5" />
+            <span
+              onClick={handleClick}
+              className="flex-1 ml-3 whitespace-nowrap"
+              disabled={loading}
+            >
+              {loading ? "Processing..." : "Connect Stripe wallet"}
+            </span>
+          </div>
           <p>
             <small>
               You'll be redirected to stripe to complete the onboarding process
             </small>
           </p>
+          <div>
+            <a
+              href="#"
+              className="text-sm font-normal text-gray-500 dark:text-gray-400"
+            >
+              Why do I need to connect with my wallet?
+            </a>
+            <p className="inline-flex items-center text-xs font-normal text-gray-500 hover:underline dark:text-gray-400">
+              Booking partners with stripe to transfer earnings to your bank
+              account
+            </p>
+          </div>
         </div>
       </div>
     </div>

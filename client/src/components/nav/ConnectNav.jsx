@@ -6,14 +6,18 @@ const ConnectNav = () => {
   const { auth } = useSelector((state) => ({ ...state }));
   const { user } = auth;
   return (
-    <div className="flex justify-around items-center">
-      <div className="flex">
+    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="flex justify-end px-4 pt-4">
         <div className="w-10 h-10 rounded-full bg-gray-600 flex justify-center items-center mr-3">
           {user.name[0]}
         </div>
         <div>
-          <h2>{user.name}</h2>
-          <p>{`Joined ${moment(user.createdAt).fromNow()}`}</p>
+          <h2 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+            {user.name}
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{`Joined ${moment(
+            user.createdAt
+          ).fromNow()}`}</p>
         </div>
       </div>
       {auth.token &&
