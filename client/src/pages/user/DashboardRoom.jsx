@@ -10,6 +10,7 @@ import logoStripe from "../../assets/images/stripe-connect.svg";
 export const DashboardRoom = () => {
   const { auth } = useSelector((state) => ({ ...state }));
   const [loading, setLoading] = useState(false);
+
   const handleClick = async () => {
     setLoading(true);
     try {
@@ -50,7 +51,7 @@ export const DashboardRoom = () => {
               className="flex-1 ml-3 whitespace-nowrap"
               disabled={loading}
             >
-              {loading ? "Processing..." : "Connect Stripe wallet"}
+              {loading ? "Processing..." : "Stripe Connect wallet"}
             </span>
           </div>
           <p>

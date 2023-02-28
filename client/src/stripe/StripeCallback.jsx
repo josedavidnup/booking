@@ -3,6 +3,7 @@ import { SpinningCircles } from "react-loading-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserInLocalStorage } from "../api/auth";
 import { getAccountStatus } from "../api/stripe";
+import { logInUser } from "../redux/slices/authUserSlice";
 
 const StripeCallback = () => {
   const { auth } = useSelector((state) => ({ ...state }));

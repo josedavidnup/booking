@@ -26,7 +26,7 @@ const LoginForm = ({ handleSubmit, user, handleOnChange }) => {
         </label>
         <input
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          type="text"
+          type="password"
           placeholder="Enter password"
           name="password"
           value={user.password}
@@ -41,7 +41,6 @@ const LoginForm = ({ handleSubmit, user, handleOnChange }) => {
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-              required
             />
           </div>
           <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -52,7 +51,7 @@ const LoginForm = ({ handleSubmit, user, handleOnChange }) => {
           href="#"
           className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
         >
-          Lost Password?
+          Forgot Password?
         </a>
       </div>
       <button
@@ -66,7 +65,7 @@ const LoginForm = ({ handleSubmit, user, handleOnChange }) => {
         Not registered?
         <Link
           to="/signup"
-          className="text-blue-700 hover:underline dark:text-blue-500"
+          className="text-blue-700 hover:underline dark:text-blue-500 ml-1"
         >
           Create account
         </Link>

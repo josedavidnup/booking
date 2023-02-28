@@ -6,7 +6,7 @@ const ConnectNav = () => {
   const { auth } = useSelector((state) => ({ ...state }));
   const { user } = auth;
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full flex justify-between items-center max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-end px-4 pt-4">
         <div className="w-10 h-10 rounded-full bg-gray-600 flex justify-center items-center mr-3">
           {user.name[0]}

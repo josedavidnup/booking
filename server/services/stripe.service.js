@@ -39,13 +39,13 @@ const getAccountStatus = async (req, res) => {
   // console.log("GET ACCOUNT STATUS");
   const user = await User.findById(req.user._id).exec();
   const account = await stripe.accounts.retrieve(user.stripe_account_id);
-  // console.log("USER ACCOUNT RETRIEVE", account);
+  console.log("USER ACCOUNT RETRIEVE", account);
   // update delay days
   // const updatedAccount = await updateDelayDays(account.id);
   const updatedUser = await User.findByIdAndUpdate(
     user._id,
     {
-      stripe_seller: updatedAccount,
+      stripe_seller: account,
     },
     { new: true }
   )
