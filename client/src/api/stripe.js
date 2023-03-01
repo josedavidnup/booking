@@ -21,3 +21,32 @@ export const getAccountStatus = async (token) =>
       },
     }
   );
+
+export const getAccountBalance = async (token) =>
+  await axios.post(
+    `/get-account-balance`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+export const currencyFormatter = (data) => {
+  return (data.amount / 100).toLocaleString(data.currency, {
+    style: "currency",
+    currency: data.currency,
+  });
+};
+
+export const payoutSetting = async (token) =>
+  axios.post(
+    `/payout-setting`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );

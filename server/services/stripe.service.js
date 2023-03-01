@@ -1,7 +1,11 @@
 const User = require("../schemas/user.schema");
 const Stripe = require("stripe");
 const querystring = require("querystring");
-const { stripeSecret, stripeRedirect_Url } = require("../utils/config");
+const {
+  stripeSecret,
+  stripeRedirect_Url,
+  stripe_Setting_Redirect_Url,
+} = require("../utils/config");
 const stripe = Stripe(stripeSecret);
 
 const createConnectAccount = async (req, res) => {
@@ -35,17 +39,30 @@ const createConnectAccount = async (req, res) => {
   // 4. update payment schedule (optional. default is 2 days
 };
 
+const updateDelayDays = async (accountId) => {
+  const account = await stripe.account.update(accountId, {
+    settings: {
+      payouts: {
+        schedule: {
+          delay_days: 7,
+        },
+      },
+    },
+  });
+  return account;
+};
+
 const getAccountStatus = async (req, res) => {
   // console.log("GET ACCOUNT STATUS");
   const user = await User.findById(req.user._id).exec();
   const account = await stripe.accounts.retrieve(user.stripe_account_id);
-  console.log("USER ACCOUNT RETRIEVE", account);
+  // console.log("USER ACCOUNT RETRIEVE", account);
   // update delay days
-  // const updatedAccount = await updateDelayDays(account.id);
+  const updatedAccount = await updateDelayDays(account.id);
   const updatedUser = await User.findByIdAndUpdate(
     user._id,
     {
-      stripe_seller: account,
+      stripe_seller: updatedAccount,
     },
     { new: true }
   )
@@ -55,4 +72,37 @@ const getAccountStatus = async (req, res) => {
   res.json(updatedUser);
 };
 
-module.exports = { createConnectAccount, getAccountStatus };
+const getAccountBalance = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).exec();
+    const balance = await stripe.balance.retrieve({
+      stripeAccount: user.stripe_account_id,
+    });
+    res.json(balance);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const payoutSetting = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).exec();
+    const loginLink = await stripe.accounts.createLoginLink(
+      user.stripe_seller.id,
+      {
+        redirect_url: stripe_Setting_Redirect_Url,
+      }
+    );
+    console.log("Login link", loginLink);
+    res.json(loginLink);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  createConnectAccount,
+  getAccountStatus,
+  getAccountBalance,
+  payoutSetting,
+};
