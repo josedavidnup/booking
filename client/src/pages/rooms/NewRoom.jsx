@@ -14,28 +14,25 @@ const NewRoom = () => {
     bed: "",
   });
 
+  const [preview, setPreview] = useState(
+    "https://via.placeholder.com/100x100.png?text=PREVIEW"
+  );
+
   const { title, content, location, image, price, from, to, bed } = values;
 
   const handleImageChange = (e) => {
-    //
+    setPreview(URL.createObjectURL(e.target.files[0]));
+    setValues({ ...values, image: e.target.files[0] });
   };
 
   const handleChange = (e) => {
-    //
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const hotelFrom = () => (
     <form onSubmit={handleSubmit}>
-      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Upload file
-      </label>
-      <input
-        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        onChange={handleImageChange}
-        name="image"
-        type="file"
-        accept="image/*"
-      />
+      {JSON.stringify(values)}
+
       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         Title
       </label>
@@ -80,12 +77,16 @@ const NewRoom = () => {
         onChange={handleChange}
         value={bed}
       />
-      <button
-        type="submit"
-        className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-      >
-        Save
-      </button>
+      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Upload file
+      </label>
+      <input
+        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        onChange={handleImageChange}
+        name="image"
+        type="file"
+        accept="image/*"
+      />
       <label>Place</label>
       <AddressAutofill accessToken={token}>
         <input
@@ -94,6 +95,12 @@ const NewRoom = () => {
           id="mapbox-autofill"
         />
       </AddressAutofill>
+      <button
+        type="submit"
+        className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+      >
+        Save
+      </button>
     </form>
   );
 
@@ -109,7 +116,17 @@ const NewRoom = () => {
     e.preventDefault();
   }, []);
 
-  return <>{hotelFrom()}</>;
+  return (
+    <>
+      <div>Add Hotel</div>
+      <div>
+        <div>{hotelFrom()}</div>
+        <div>
+          <img src={preview} alt="preview_image" width={200} />
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default NewRoom;
