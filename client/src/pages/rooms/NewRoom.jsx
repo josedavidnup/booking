@@ -1,12 +1,17 @@
 import React, { useState, useCallback, useEffect } from "react";
-import toast from "react-toastify";
+import { toast } from "react-toastify";
 import ReactGoogleAutocomplete from "react-google-autocomplete";
+import { DatePicker } from "antd";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { createRoom } from "../../api/rooms";
 
 const NewRoom = () => {
+  const { auth } = useSelector((state) => ({ ...state }));
+  const [location, setlocation] = useState("");
   const [values, setValues] = useState({
     title: "",
     content: "",
-    location: "",
     image: "",
     price: "",
     from: "",
@@ -18,7 +23,7 @@ const NewRoom = () => {
     "https://via.placeholder.com/100x100.png?text=PREVIEW"
   );
 
-  const { title, content, location, image, price, from, to, bed } = values;
+  const { title, content, image, price, from, to, bed } = values;
 
   const handleImageChange = (e) => {
     setPreview(URL.createObjectURL(e.target.files[0]));
@@ -29,13 +34,35 @@ const NewRoom = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let roomData = new FormData();
+    roomData.append("title", title);
+    roomData.append("content", content);
+    roomData.append("location", location);
+    roomData.append("price", price);
+    image && roomData.append("image", image);
+    roomData.append("from", from);
+    roomData.append("to", to);
+    roomData.append("bed", bed);
+    console.log(...roomData);
+
+    const res = await createRoom(auth.token, roomData);
+    console.log(res);
+    toast.success("New room has been created");
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
+
+  const config = import.meta.env.VITE_GOOGLEPLACES_API_KEY;
+
   const hotelFrom = () => (
     <form onSubmit={handleSubmit}>
       {JSON.stringify(values)}
+      {JSON.stringify(location)}
 
-      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Title
-      </label>
       <input
         type="text"
         name="title"
@@ -44,9 +71,6 @@ const NewRoom = () => {
         onChange={handleChange}
         value={title}
       />
-      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Content
-      </label>
       <textarea
         name="content"
         value={content}
@@ -55,9 +79,7 @@ const NewRoom = () => {
         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Content"
       />
-      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Price
-      </label>
+
       <input
         type="number"
         name="price"
@@ -66,17 +88,20 @@ const NewRoom = () => {
         onChange={handleChange}
         value={price}
       />
-      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Bed
-      </label>
-      <input
-        type="number"
+      <select
         name="bed"
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Beds"
-        onChange={handleChange}
-        value={bed}
-      />
+        onChange={(e) => setValues({ ...values, bed: e.target.value })}
+        defaultValue={"DEFAULT"}
+      >
+        <option value={"DEFAULT"} disabled>
+          Number of Beds
+        </option>
+        <option key={1}>1</option>
+        <option key={2}>2</option>
+        <option key={3}>3</option>
+        <option key={4}>4</option>
+      </select>
       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         Upload file
       </label>
@@ -87,17 +112,36 @@ const NewRoom = () => {
         type="file"
         accept="image/*"
       />
-      <label>Place</label>
-
       <ReactGoogleAutocomplete
-        className="form-control m-2"
+        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
         placeholder="Location"
-        apiKey={configuration}
+        apiKey={config}
         onPlaceSelected={(place) => {
-          setLocation(place.formatted_address);
+          setlocation(place.formatted_address);
         }}
         style={{ height: "50px" }}
       />
+
+      <DatePicker
+        placeholder="Select date start"
+        onChange={(date, dateString) =>
+          setValues({ ...values, from: dateString })
+        }
+        disabledDate={(current) =>
+          current && current.valueOf() < moment().subtract(1, "days")
+        }
+      />
+
+      <DatePicker
+        placeholder="Select date end"
+        onChange={(date, dateString) =>
+          setValues({ ...values, to: dateString })
+        }
+        disabledDate={(current) =>
+          current && current.valueOf() < moment(from).subtract()
+        }
+      />
+
       <button
         type="submit"
         className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
@@ -106,12 +150,6 @@ const NewRoom = () => {
       </button>
     </form>
   );
-
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-  }, []);
-
-  const configuration = import.meta.env.VITE_GOOGLEPLACES_API_KEY;
 
   return (
     <>
