@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
-// import toast from "react-toastify";
-import { AddressAutofill, config } from "@mapbox/search-js-react";
+import toast from "react-toastify";
+import ReactGoogleAutocomplete from "react-google-autocomplete";
 
 const NewRoom = () => {
   const [values, setValues] = useState({
@@ -88,13 +88,16 @@ const NewRoom = () => {
         accept="image/*"
       />
       <label>Place</label>
-      <AddressAutofill accessToken={token}>
-        <input
-          placeholder="Start typing your address, e.g. 123 Main..."
-          autoComplete="address-line1"
-          id="mapbox-autofill"
-        />
-      </AddressAutofill>
+
+      <ReactGoogleAutocomplete
+        className="form-control m-2"
+        placeholder="Location"
+        apiKey={configuration}
+        onPlaceSelected={(place) => {
+          setLocation(place.formatted_address);
+        }}
+        style={{ height: "50px" }}
+      />
       <button
         type="submit"
         className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
@@ -104,17 +107,11 @@ const NewRoom = () => {
     </form>
   );
 
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    const accessToken = import.meta.env.VITE_MAPBOX_KEY;
-    setToken(accessToken);
-    config.accessToken = accessToken;
-  }, []);
-
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
   }, []);
+
+  const configuration = import.meta.env.VITE_GOOGLEPLACES_API_KEY;
 
   return (
     <>
