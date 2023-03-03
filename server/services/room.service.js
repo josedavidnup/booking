@@ -31,10 +31,29 @@ const create = async (req, res) => {
 };
 
 const rooms = async (req, res) => {
-  const all = await Room.find({}).limit(24).select("-image.data");
+  try {
+    const all = await Room.find({})
+      .limit(24)
+      .select("-image.data")
+      .populate("postedBy", "_id name")
+      .exec();
+
+    res.json(all);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const image = async (req, res) => {
+  const room = await Room.findById(req.params.roomId).exec();
+  if (room && room.image && room.image.data !== null) {
+    res.set("Content-Type", room.image.contentType);
+    return res.send(room.image.data);
+  }
 };
 
 module.exports = {
   create,
   rooms,
+  image,
 };

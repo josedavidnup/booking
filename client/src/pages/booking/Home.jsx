@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { allRooms } from "../../api/rooms";
+import RoomCard from "../../components/cards/RoomCard";
 
 const Home = () => {
   const { auth } = useSelector((state) => ({ ...state }));
-  return <div>Home Page</div>;
+  const [rooms, setRooms] = useState([]);
+
+  const loadAllRooms = async () => {
+    let res = await allRooms();
+    setRooms(res.data);
+  };
+
+  useEffect(() => {
+    loadAllRooms();
+  }, []);
+
+  return (
+    <>
+      <h1>All rooms</h1>
+      {rooms.map((room) => (
+        <RoomCard key={room._id} room={room} />
+      ))}
+    </>
+  );
 };
 
 export default Home;
