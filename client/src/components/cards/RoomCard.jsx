@@ -5,7 +5,12 @@ import { GrLocation } from "react-icons/gr";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const RoomCard = ({ room, handleRoomDelete = (f) => f }) => {
+const RoomCard = ({
+  room,
+  handleRoomDelete = (f) => f,
+  owner = false,
+  showViewMoreButton = true,
+}) => {
   useEffect(() => {
     console.log(`${import.meta.env.VITE_BASE_URL}/room/image/${room._id}`);
   }, []);
@@ -56,24 +61,28 @@ const RoomCard = ({ room, handleRoomDelete = (f) => f }) => {
               currency: "usd",
             })}
           </span>
-          <Link
-            to={`/room/${room._id}`}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Show more
-          </Link>
+          {showViewMoreButton && (
+            <Link
+              to={`/room/${room._id}`}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Show more
+            </Link>
+          )}
         </div>
-        <div className="flex items-center justify-between">
-          <Link
-            to={`/room/edit/${room._id}`}
-            className="text-white bg-yellow hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            <AiOutlineEdit />
-          </Link>
-          <div className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <AiOutlineDelete onClick={() => handleRoomDelete(room._id)} />
+        {owner && (
+          <div className="flex items-center justify-between">
+            <Link
+              to={`/room/edit/${room._id}`}
+              className="text-white bg-yellow hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              <AiOutlineEdit />
+            </Link>
+            <div className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <AiOutlineDelete onClick={() => handleRoomDelete(room._id)} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

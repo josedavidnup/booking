@@ -17,12 +17,12 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <main className="flex">
       <h1>All rooms</h1>
       {rooms.map((room) => (
-        <RoomCard key={room._id} room={room} />
+        <RoomCard key={room._id} room={room} owner />
       ))}
-    </>
+    </main>
   );
 };
 
