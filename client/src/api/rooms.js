@@ -16,3 +16,14 @@ export const diffDays = (from, to) => {
   const difference = Math.round(Math.abs((start - end) / day));
   return difference;
 };
+
+export const sellerRooms = async (token) =>
+  await axios.get(
+    `/seller-rooms`,
+
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );

@@ -9,6 +9,7 @@ const create = async (req, res) => {
     let files = req.files;
 
     const room = new Room(fields);
+    room.postedBy = req.user._id;
 
     if (files.image) {
       room.image.data = fs.readFileSync(files.image.path);
@@ -52,8 +53,18 @@ const image = async (req, res) => {
   }
 };
 
+const sellerRooms = async (req, res) => {
+  const all = await Room.find({ postedBy: req.user._id })
+    .select("-image.data")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  return res.send(all);
+};
+
 module.exports = {
   create,
   rooms,
   image,
+  sellerRooms,
 };

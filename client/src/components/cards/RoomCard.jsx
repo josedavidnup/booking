@@ -40,7 +40,7 @@ const RoomCard = ({
           {room.location} <GrLocation />
         </p>
         <p className="tracking-tight text-gray-900 dark:text-white">
-          {`${room.content.substring(1, 200)}`}
+          {`${room.content.substring(0, 200)}`}
         </p>
         <span className="tracking-tight text-gray-900 dark:text-white">
           for {diffDays(room.from, room.to)}

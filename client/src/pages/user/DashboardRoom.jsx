@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardNav from "../../components/nav/DashboardNav";
 import ConnectNav from "../../components/nav/ConnectNav";
 import { Link } from "react-router-dom";
@@ -6,10 +6,13 @@ import { useSelector } from "react-redux";
 import { createConnectAccount } from "../../api/stripe";
 import { toast } from "react-toastify";
 import logoStripe from "../../assets/images/stripe-connect.svg";
+import { sellerRooms } from "../../api/rooms";
+import RoomCard from "../../components/cards/RoomCard";
 
 export const DashboardRoom = () => {
   const { auth } = useSelector((state) => ({ ...state }));
   const [loading, setLoading] = useState(false);
+  const [rooms, setRooms] = useState([]);
 
   const handleClick = async () => {
     setLoading(true);
@@ -24,6 +27,15 @@ export const DashboardRoom = () => {
     }
   };
 
+  const loadSellerRooms = async () => {
+    const { data } = await sellerRooms(auth.token);
+    setRooms(data);
+  };
+
+  useEffect(() => {
+    loadSellerRooms();
+  }, []);
+
   const connected = () => (
     <div>
       <div className="flex justify-around">
@@ -33,6 +45,16 @@ export const DashboardRoom = () => {
         <div>
           <Link to={"/user/rooms/new"}>+ Add new</Link>
         </div>
+      </div>
+      <div className="flex">
+        {rooms.map((room) => (
+          <RoomCard
+            key={room._id}
+            room={room}
+            showViewMoreButton={false}
+            owner={true}
+          />
+        ))}
       </div>
     </div>
   );
