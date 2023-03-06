@@ -5,8 +5,9 @@ import { diffDays, getRoom } from "../../api/rooms";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { getSessionId } from "../../api/stripe";
+import { loadStripe } from "@stripe/stripe-js";
 
-const ViewHotel = () => {
+const ViewRoom = () => {
   const { roomId } = useParams();
   const [room, setRoom] = useState({});
   const [image, setImage] = useState("");
@@ -23,7 +24,13 @@ const ViewHotel = () => {
     e.preventDefault();
     if (!auth.user) navigate("/login");
     const res = await getSessionId(auth.token, roomId);
-    console.log(res.data.sessionId);
+    // console.log(res.data.sessionId);
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_KEY);
+    stripe
+      .redirectToCheckout({
+        sessionId: res.data.sessionId,
+      })
+      .then((result) => console.log(result));
   };
 
   useEffect(() => {
@@ -64,4 +71,4 @@ const ViewHotel = () => {
   );
 };
 
-export default ViewHotel;
+export default ViewRoom;

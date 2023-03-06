@@ -8,7 +8,7 @@ import UserRoute from "./components/routes/UserRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./assets/loaders/Loader";
-import ViewHotel from "./pages/rooms/ViewHotel";
+import ViewRoom from "./pages/rooms/ViewRoom";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user/*" element={<UserRoute />} />
         <Route path="/user/*" element={<UserRoute />} />
-        <Route path="/room/:roomId" element={<ViewHotel />} />
+        <Route path="/room/:roomId" element={<ViewRoom />} />
         <Route path="/loader" element={<Loader />} />
       </Routes>
       <ToastContainer pauseOnFocusLoss={false} />

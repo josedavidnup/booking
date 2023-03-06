@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Dashboard from "../../pages/user/Dashboard";
 import { DashboardRoom } from "../../pages/user/DashboardRoom";
 import NewRoom from "../../pages/rooms/NewRoom";
-import StripeCallback from "../../stripe/StripeCallback";
+import StripeCallback from "../../pages/stripe/StripeCallback";
 import EditRoom from "../../pages/rooms/EditRoom";
 
 const UserRoute = () => {

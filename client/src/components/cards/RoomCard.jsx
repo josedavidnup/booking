@@ -53,7 +53,7 @@ const RoomCard = ({
         <div className="flex items-center justify-between">
           <span className="text-3xl font-bold text-gray-900 dark:text-white">
             {currencyFormatter({
-              amount: room.price,
+              amount: room.price * 100,
               currency: "usd",
             })}
           </span>
