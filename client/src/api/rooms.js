@@ -32,3 +32,10 @@ export const deleteRoom = async (token, roomId) =>
   });
 
 export const getHotel = async (roomId) => await axios.get(`/room/${roomId}`);
+
+export const updateRoom = async (token, data, roomId) =>
+  await axios.put(`/update-room/${roomId}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

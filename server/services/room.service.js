@@ -78,6 +78,33 @@ const read = async (req, res) => {
   return res.json(room);
 };
 
+const update = async (req, res) => {
+  try {
+    let fields = req.fields;
+    let files = req.files;
+
+    let data = { ...fields };
+
+    if (files.image) {
+      let image = {};
+      image.data = fs.readFileSync(files.image.path);
+      image.contentType = files.image.type;
+    }
+    data.image = image;
+
+    const updated = await Room.findByIdAndUpdate(req.params.roomId, data, {
+      new: true,
+    }).select("image.data");
+
+    res.json(updated);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   create,
   rooms,
@@ -85,4 +112,5 @@ module.exports = {
   sellerRooms,
   remove,
   read,
+  update,
 };
