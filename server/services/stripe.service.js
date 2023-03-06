@@ -1,5 +1,6 @@
 const User = require("../schemas/user.schema");
 const Room = require("../schemas/room.schema");
+const Order = require("../schemas/order.schema");
 const Stripe = require("stripe");
 const querystring = require("querystring");
 const {
@@ -128,7 +129,7 @@ const stripeSessionId = async (req, res) => {
       application_fee_amount: fee * 100,
       transfer_data: { destination: item.postedBy.stripe_account_id },
     },
-    success_url: stripe_success_Url,
+    success_url: `${stripe_success_Url}/${item._id}`,
     cancel_url: stripe_cancel_Url,
   });
 
@@ -141,10 +142,50 @@ const stripeSessionId = async (req, res) => {
   });
 };
 
+const stripeSuccess = async (req, res) => {
+  try {
+    const { roomId } = req.body;
+
+    const user = await User.findById(req.user._id).exec();
+
+    if (!user.stripeSession) return;
+
+    const session = await stripe.checkout.sessions.retrieve(
+      user.stripeSession.id
+    );
+
+    if (session.payment_status === "paid") {
+      const orderExist = await Order.findOne({
+        "session.id": session.id,
+      }).exec();
+
+      if (orderExist) {
+        res.json({ success: true });
+      } else {
+        let newOrder = await new Order({
+          room: roomId,
+          session,
+          orderedBy: user._id,
+        }).save();
+
+        await User.findByIdAndUpdate(user._id, {
+          $set: {
+            stripeSession: {},
+          },
+        });
+        res.json({ success: true });
+      }
+    }
+  } catch (error) {
+    console.log("STRIPE SUCCESS ERROR", error);
+  }
+};
+
 module.exports = {
   createConnectAccount,
   getAccountStatus,
   getAccountBalance,
   payoutSetting,
   stripeSessionId,
+  stripeSuccess,
 };

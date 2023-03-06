@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./assets/loaders/Loader";
 import ViewRoom from "./pages/rooms/ViewRoom";
+import Stripe from "./components/routes/Stripe";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user/*" element={<UserRoute />} />
-        <Route path="/user/*" element={<UserRoute />} />
+        <Route path="/stripe/*" element={<Stripe />} />
         <Route path="/room/:roomId" element={<ViewRoom />} />
         <Route path="/loader" element={<Loader />} />
       </Routes>
