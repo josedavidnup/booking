@@ -72,6 +72,7 @@ const remove = async (req, res) => {
 
 const read = async (req, res) => {
   const room = await Room.findById(req.params.roomId)
+    .populate("postedBy")
     .select("-image.data")
     .exec();
   console.log(room);
