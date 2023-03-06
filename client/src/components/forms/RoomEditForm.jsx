@@ -14,9 +14,6 @@ const RoomEditForm = ({
   const { title, content, price, bed, location, from, to } = values;
   return (
     <form onSubmit={handleSubmit}>
-      {JSON.stringify(values)}
-      {JSON.stringify(location)}
-
       <input
         type="text"
         name="title"
@@ -74,7 +71,8 @@ const RoomEditForm = ({
       {from && (
         <DatePicker
           defaultValue={moment(from, "YYYY-MM-DD")}
-          placeholder="Select date start"
+          placeholder="From date"
+          className="form-control m-2"
           onChange={(date, dateString) =>
             setValues({ ...values, from: dateString })
           }
@@ -87,12 +85,13 @@ const RoomEditForm = ({
       {to && (
         <DatePicker
           defaultValue={moment(to, "YYYY-MM-DD")}
-          placeholder="Select date end"
+          placeholder="To date"
+          className="form-control m-2"
           onChange={(date, dateString) =>
             setValues({ ...values, to: dateString })
           }
           disabledDate={(current) =>
-            current && current.valueOf() < moment(from).subtract()
+            current && current.valueOf() < moment().subtract(1, "days")
           }
         />
       )}
@@ -102,7 +101,6 @@ const RoomEditForm = ({
         name="image"
         type="file"
         accept="image/*"
-        multiple
       />
 
       <button

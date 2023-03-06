@@ -89,8 +89,8 @@ const update = async (req, res) => {
       let image = {};
       image.data = fs.readFileSync(files.image.path);
       image.contentType = files.image.type;
+      data.image = image;
     }
-    data.image = image;
 
     const updated = await Room.findByIdAndUpdate(req.params.roomId, data, {
       new: true,
