@@ -7,4 +7,6 @@ module.exports = {
   stripeSecret: process.env.STRIPE_SECRET,
   stripeRedirect_Url: process.env.STRIPE_REDIRECT_URL,
   stripe_Setting_Redirect_Url: process.env.STRIPE_SETTING_REDIRECT_URL,
+  stripe_success_Url: process.env.STRIPE_SUCCESS_URL,
+  stripe_cancel_Url: process.env.STRIPE_CANCEL_URL,
 };

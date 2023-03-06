@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { diffDays, getRoom } from "../../api/rooms";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import { getSessionId } from "../../api/stripe";
 
 const ViewHotel = () => {
   const { roomId } = useParams();
@@ -18,9 +19,11 @@ const ViewHotel = () => {
     setImage(`${import.meta.env.VITE_BASE_URL}/room/image/${res.data._id}`);
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     if (!auth.user) navigate("/login");
+    const res = await getSessionId(auth.token, roomId);
+    console.log(res.data.sessionId);
   };
 
   useEffect(() => {

@@ -1,10 +1,13 @@
 const User = require("../schemas/user.schema");
+const Room = require("../schemas/room.schema");
 const Stripe = require("stripe");
 const querystring = require("querystring");
 const {
   stripeSecret,
   stripeRedirect_Url,
   stripe_Setting_Redirect_Url,
+  stripe_cancel_Url,
+  stripe_success_Url,
 } = require("../utils/config");
 const stripe = Stripe(stripeSecret);
 
@@ -100,9 +103,48 @@ const payoutSetting = async (req, res) => {
   }
 };
 
+const stripeSessionId = async (req, res) => {
+  const { roomId } = req.body;
+
+  const item = await Room.findById(roomId).populate("postedBy").exec();
+
+  const fee = (item.price * 20) / 100;
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          unit_amount: item.price * 100,
+          product_data: {
+            name: item.title,
+          },
+        },
+        quantity: 1,
+      },
+    ],
+    payment_intent_data: {
+      application_fee_amount: fee * 100,
+      transfer_data: { destination: item.postedBy.stripe_account_id },
+    },
+    success_url: stripe_success_Url,
+    cancel_url: stripe_cancel_Url,
+  });
+
+  await User.findByIdAndUpdate(req.user._id, {
+    stripeSession: session,
+  }).exec();
+
+  res.send({
+    sessionId: session.id,
+  });
+};
+
 module.exports = {
   createConnectAccount,
   getAccountStatus,
   getAccountBalance,
   payoutSetting,
+  stripeSessionId,
 };

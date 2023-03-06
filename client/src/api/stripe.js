@@ -41,9 +41,20 @@ export const currencyFormatter = (data) => {
 };
 
 export const payoutSetting = async (token) =>
-  axios.post(
+  await axios.post(
     `/payout-setting`,
     {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+export const getSessionId = async (token, roomId) =>
+  await axios.post(
+    `/stripe-session-id`,
+    { roomId },
     {
       headers: {
         Authorization: `Bearer ${token}`,
