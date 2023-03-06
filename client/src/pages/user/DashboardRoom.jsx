@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { createConnectAccount } from "../../api/stripe";
 import { toast } from "react-toastify";
 import logoStripe from "../../assets/images/stripe-connect.svg";
-import { sellerRooms } from "../../api/rooms";
+import { sellerRooms, deleteRoom } from "../../api/rooms";
 import RoomCard from "../../components/cards/RoomCard";
 
 export const DashboardRoom = () => {
@@ -32,6 +32,13 @@ export const DashboardRoom = () => {
     setRooms(data);
   };
 
+  const handleRoomDelete = async (roomId) => {
+    if (!window.confirm("Are you sure?")) return;
+    await deleteRoom(auth.token, roomId).then((res) => {
+      toast.success(`Hotel has been deleted`);
+    });
+  };
+
   useEffect(() => {
     loadSellerRooms();
   }, []);
@@ -53,6 +60,7 @@ export const DashboardRoom = () => {
             room={room}
             showViewMoreButton={false}
             owner={true}
+            handleRoomDelete={handleRoomDelete}
           />
         ))}
       </div>

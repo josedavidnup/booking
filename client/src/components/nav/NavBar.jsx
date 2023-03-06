@@ -61,7 +61,7 @@ const NavBar = () => {
               {dropdown && (
                 <div
                   id="dropdownAvatar"
-                  className="z-10  right-0 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                  className="z-10 right-0 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                 >
                   <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                     <div>Signed in as</div>

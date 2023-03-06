@@ -62,9 +62,27 @@ const sellerRooms = async (req, res) => {
   return res.send(all);
 };
 
+const remove = async (req, res) => {
+  const removed = await Room.findByIdAndDelete(req.params.roomId)
+    .select("-image.data")
+    .exec();
+
+  return res.json(removed);
+};
+
+const read = async (req, res) => {
+  const room = await Room.findById(req.params.roomId)
+    .select("-image.data")
+    .exec();
+  console.log(room);
+  return res.json(room);
+};
+
 module.exports = {
   create,
   rooms,
   image,
   sellerRooms,
+  remove,
+  read,
 };

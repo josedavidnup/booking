@@ -18,12 +18,17 @@ export const diffDays = (from, to) => {
 };
 
 export const sellerRooms = async (token) =>
-  await axios.get(
-    `/seller-rooms`,
+  await axios.get(`/seller-rooms`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export const deleteRoom = async (token, roomId) =>
+  await axios.delete(`/delete-room/${roomId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const getHotel = async (roomId) => await axios.get(`/room/${roomId}`);

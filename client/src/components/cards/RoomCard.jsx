@@ -11,10 +11,6 @@ const RoomCard = ({
   owner = false,
   showViewMoreButton = true,
 }) => {
-  useEffect(() => {
-    console.log(`${import.meta.env.VITE_BASE_URL}/room/image/${room._id}`);
-  }, []);
-
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {room.image && room.image.contentType ? (
@@ -63,7 +59,7 @@ const RoomCard = ({
           </span>
           {showViewMoreButton && (
             <Link
-              to={`/room/${room._id}`}
+              to={`user/room/${room._id}`}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Show more
@@ -73,7 +69,7 @@ const RoomCard = ({
         {owner && (
           <div className="flex items-center justify-between">
             <Link
-              to={`/room/edit/${room._id}`}
+              to={`/user/room/edit/${room._id}`}
               className="text-white bg-yellow hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <AiOutlineEdit />

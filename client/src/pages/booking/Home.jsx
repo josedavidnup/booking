@@ -20,7 +20,7 @@ const Home = () => {
     <main className="flex">
       <h1>All rooms</h1>
       {rooms.map((room) => (
-        <RoomCard key={room._id} room={room} owner />
+        <RoomCard key={room._id} room={room} />
       ))}
     </main>
   );
