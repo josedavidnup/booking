@@ -39,3 +39,17 @@ export const updateRoom = async (token, data, roomId) =>
       Authorization: `Bearer ${token}`,
     },
   });
+
+export const userRoomBookings = async (token) =>
+  await axios.get(`/user-room-bookings`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const isAlreadyBooked = async (token, roomId) =>
+  await axios.get(`/is-already-booked/${roomId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

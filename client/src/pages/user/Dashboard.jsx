@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { userRoomBookings } from "../../api/rooms";
 import ConnectNav from "../../components/nav/ConnectNav";
 import DashboardNav from "../../components/nav/DashboardNav";
+import { useSelector } from "react-redux";
+import BookingCard from "../../components/cards/BookingCard";
 
 const Dashboard = () => {
+  const {
+    auth: { token },
+  } = useSelector((state) => ({ ...state }));
+  const [bookings, setBookings] = useState([]);
+
+  const loadUserBookings = async () => {
+    const res = await userRoomBookings(token);
+    setBookings(res.data);
+  };
+
+  useEffect(() => {
+    loadUserBookings();
+  }, []);
+
   return (
     <>
       <div>
@@ -22,7 +39,16 @@ const Dashboard = () => {
               <Link to={"/"}>Browse hotels</Link>
             </div>
           </div>
-          {/* <p>Bookings and browser hotels</p> */}
+          <div>
+            {bookings.map((booking) => (
+              <BookingCard
+                key={booking._id}
+                room={booking.room}
+                session={booking.session}
+                orderedBy={booking.orderedBy}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>

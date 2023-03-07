@@ -9,6 +9,8 @@ const {
   remove,
   read,
   update,
+  userRoomBookings,
+  isAlreadyBooked,
 } = require("../services/room.service");
 const formidableMiddleware = require("express-formidable");
 
@@ -25,5 +27,7 @@ router.put(
   formidableMiddleware(),
   update
 );
+router.get("/user-room-bookings", loginVerification, userRoomBookings);
+router.get("/is-already-booked/:roomId", loginVerification, isAlreadyBooked);
 
 module.exports = router;
