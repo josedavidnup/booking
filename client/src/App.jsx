@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "./assets/loaders/Loader";
 import ViewRoom from "./pages/rooms/ViewRoom";
 import Stripe from "./components/routes/Stripe";
+import SearchResult from "./pages/rooms/SearchResult";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/user/*" element={<UserRoute />} />
         <Route path="/stripe/*" element={<Stripe />} />
         <Route path="/room/:roomId" element={<ViewRoom />} />
+        <Route path="/search-result" element={<SearchResult />} />
         <Route path="/loader" element={<Loader />} />
       </Routes>
       <ToastContainer pauseOnFocusLoss={false} />

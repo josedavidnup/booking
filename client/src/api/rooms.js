@@ -53,3 +53,6 @@ export const isAlreadyBooked = async (token, roomId) =>
       Authorization: `Bearer ${token}`,
     },
   });
+
+export const searchListings = async (query) =>
+  await axios.post(`/search-listings`, query);

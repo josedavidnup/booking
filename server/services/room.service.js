@@ -132,6 +132,19 @@ const isAlreadyBooked = async (req, res) => {
   });
 };
 
+const searchListings = async (req, res) => {
+  const { location, date, bed } = req.body;
+  console.log(date);
+  const fromDate = date.split(",");
+  const result = await Room.find({
+    from: { $gte: new Date(fromDate[0]) },
+    location,
+  })
+    .select("-image.data")
+    .exec();
+  res.json(result);
+};
+
 module.exports = {
   create,
   rooms,
@@ -142,4 +155,5 @@ module.exports = {
   update,
   userRoomBookings,
   isAlreadyBooked,
+  searchListings,
 };
