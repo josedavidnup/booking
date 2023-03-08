@@ -9,6 +9,4 @@ module.exports = {
   stripe_Setting_Redirect_Url: process.env.STRIPE_SETTING_REDIRECT_URL,
   stripe_success_Url: process.env.STRIPE_SUCCESS_URL,
   stripe_cancel_Url: process.env.STRIPE_CANCEL_URL,
-  amadeus_api_key: process.env.AMADEUS_API_KEY,
-  amadeus_api_secret: process.env.AMADEUS_API_SECRET,
 };
