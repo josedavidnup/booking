@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createConnectAccount = async (token) =>
   await axios.post(
-    `/create-connect-account`,
+    `/api/create-connect-account`,
     {},
     {
       headers: {
@@ -13,7 +13,7 @@ export const createConnectAccount = async (token) =>
 
 export const getAccountStatus = async (token) =>
   await axios.post(
-    `/get-account-status`,
+    `/api/get-account-status`,
     {},
     {
       headers: {
@@ -24,7 +24,7 @@ export const getAccountStatus = async (token) =>
 
 export const getAccountBalance = async (token) =>
   await axios.post(
-    `/get-account-balance`,
+    `/api/get-account-balance`,
     {},
     {
       headers: {
@@ -42,7 +42,7 @@ export const currencyFormatter = (data) => {
 
 export const payoutSetting = async (token) =>
   await axios.post(
-    `/payout-setting`,
+    `/api/payout-setting`,
     {},
     {
       headers: {
@@ -53,7 +53,7 @@ export const payoutSetting = async (token) =>
 
 export const getSessionId = async (token, roomId) =>
   await axios.post(
-    `/stripe-session-id`,
+    `/api/stripe-session-id`,
     { roomId },
     {
       headers: {
@@ -64,7 +64,7 @@ export const getSessionId = async (token, roomId) =>
 
 export const stripeSuccessRequest = async (token, roomId) =>
   await axios.post(
-    `/stripe-success`,
+    `/api/stripe-success`,
     { roomId },
     {
       headers: {
