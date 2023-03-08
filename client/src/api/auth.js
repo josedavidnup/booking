@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const signup = async (user) => await axios.post(`/api/signup`, user);
+export const signup = async (user) => await axios.post(`/signup`, user);
 
 export const login = async (user) => await axios.post(`/api/login`, user);
 
