@@ -18,14 +18,14 @@ export const diffDays = (from, to) => {
 };
 
 export const sellerRooms = async (token) =>
-  await axios.get(`/seller-rooms`, {
+  await axios.get(`/api/seller-rooms`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
 export const deleteRoom = async (token, roomId) =>
-  await axios.delete(`/delete-room/${roomId}`, {
+  await axios.delete(`/api/delete-room/${roomId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
