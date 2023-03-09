@@ -29,7 +29,9 @@ const EditRoom = () => {
     const res = await getRoom(roomId);
     // console.log(res);
     setValues({ ...values, ...res.data });
-    setPreview(`${import.meta.env.VITE_BASE_URL}/room/image/${res.data._id}`);
+    setPreview(
+      `${import.meta.env.VITE_APP_API}/api/room/image/${res.data._id}`
+    );
   };
 
   const handleSubmit = async (e) => {

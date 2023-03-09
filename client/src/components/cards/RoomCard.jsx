@@ -15,7 +15,7 @@ const RoomCard = ({
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {room.image && room.image.contentType ? (
         <img
-          src={`${import.meta.env.VITE_BASE_URL}/room/image/${room._id}`}
+          src={`${import.meta.env.VITE_APP_API}/api/room/image/${room._id}`}
           className="p-8 rounded-t-lg"
           alt="product image"
         />

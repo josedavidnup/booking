@@ -18,7 +18,7 @@ const ViewRoom = () => {
     const res = await getRoom(roomId);
     console.log(res);
     setRoom(res.data);
-    setImage(`${import.meta.env.VITE_BASE_URL}/room/image/${res.data._id}`);
+    setImage(`${import.meta.env.VITE_APP_API}/api/room/image/${res.data._id}`);
   };
 
   const handleClick = async (e) => {
