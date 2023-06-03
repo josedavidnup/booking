@@ -27,7 +27,7 @@ const Dashboard = () => {
         <div className='w-full '>
           <ConnectNav />
         </div>
-        <div className='bg-slate-700 text-white rounded-lg p-4'>
+        <gidiv className='bg-slate-700 text-white rounded-lg p-4'>
           <div>
             <DashboardNav />
           </div>
@@ -53,7 +53,7 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-        </div>
+        </gidiv>
       </div>
     </>
   );
